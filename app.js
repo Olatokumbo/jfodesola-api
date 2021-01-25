@@ -8,7 +8,9 @@ require("dotenv").config();
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  console.log("QWERTY");
+  res.json({
+    status: "API is working!!!"
+  })
 });
 app.post("/mail", (req, res) => {
   const from = req.body.from;
