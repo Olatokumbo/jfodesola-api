@@ -3,8 +3,9 @@ const transporter = require("./transporter");
 const bodyParser = require("body-parser");
 const port = 8000;
 const app = express();
+const cors = require('cors');
 require("dotenv").config();
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
