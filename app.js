@@ -18,23 +18,19 @@ app.post("/mail", (req, res) => {
   const name = req.body.name;
   const message = req.body.message;
   console.log(req.body);
+  const data = {
+    from,
+    to: process.env.TO,
+    subject: `Message from ${name}/${from} (JFOdesola website)`,
+    text: `${message}`,
+  };
+
   transporter
-    .sendMail({
-      from,
-      to: process.env.TO,
-      subject: `Message from ${name}/${from} (JFOdesola website)`,
-      text: `${message}`,
-    })
+    .sendMail(data)
     .then(() => {
-      res.statusCode(200).json({
-        status: "Message Sent!!",
-      });
+      return res.status(200).json({ status: "Message Sent" });
     })
-    .catch((err) => {
-      res.statusCode(404).json({
-        status: "Error",
-      });
-    });
+    .catch((error) => {return res.status(404).json({status: "Error in sending Message"})});
 });
 
 app.listen(process.env.PORT || port, (req, res) => {
